@@ -8,4 +8,11 @@ export default StyleSheet.create({
   rootStackStyle: {
     flex: 1,
   },
+  messageBannerContainer: {
+    // position: 'absolute',
+    // top: 20,
+    // left: 0,
+    // right: 0,
+    // height: 0,
+  },
 });

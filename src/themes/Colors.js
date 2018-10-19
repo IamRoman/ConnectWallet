@@ -11,6 +11,7 @@ const colors = {
   timerColor: '#FDDA24',
   activeButtonTextColor: '#3B4952',
   inactiveButtonTextColor: '#90979C',
+  bannerErrorColor: '#E2575B',
 };
 
 export default colors;

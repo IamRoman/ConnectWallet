@@ -2,6 +2,7 @@ import * as types from '../actions/appSettings';
 
 const initialState = {
   isShowModal: false,
+  messageBannerIsVisible: false,
 };
 
 export default function appSettingsReducer(state = initialState, action) {
