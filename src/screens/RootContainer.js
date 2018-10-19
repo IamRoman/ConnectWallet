@@ -6,10 +6,14 @@ import MainStack from '../navigation/MainNavigation';
 import styles from './styles/RootContainerStyles';
 import { Colors } from '../themes';
 import { setNetworkIsConnected } from '../actions/network';
+import MessageBanner from '../components/MessageBanner';
+
+const { bannerErrorColor, white } = Colors;
 
 class RootContainer extends React.Component {
   static propTypes = {
     setNetwork: PropTypes.func.isRequired,
+    messageBannerIsVisible: PropTypes.bool.isRequired,
   };
   static defaultProps = {
   };
@@ -37,6 +41,7 @@ class RootContainer extends React.Component {
   };
 
   render() {
+    const { messageBannerIsVisible } = this.props;
     return (
       <View
         style={styles.applicationView}
@@ -49,13 +54,21 @@ class RootContainer extends React.Component {
         <View style={styles.rootStackStyle}>
           <MainStack />
         </View>
+        <View style={styles.messageBannerContainer}>
+          <MessageBanner
+            visible={messageBannerIsVisible}
+            bannerColor={bannerErrorColor}
+            textColor={white}
+            text="Введено не вірний VCODE. Спробуйте знову."
+          />
+        </View>
       </View>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  appSettings: state.appSettings,
+const mapStateToProps = ({ appSettings: { messageBannerIsVisible } }) => ({
+  messageBannerIsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({

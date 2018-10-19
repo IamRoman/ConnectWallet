@@ -4,12 +4,13 @@ import {
   View,
   Text,
   Image,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import styles from './styles/FirstScreenStyles';
-import { Images, Colors, Metrics } from '../themes';
+import { Images, Colors } from '../themes';
 import Header from '../components/AppHeader';
 import SimpleButton from '../components/SimpleButton';
 import ButtonWithImage from '../components/ButtonWithImage';
@@ -36,7 +37,7 @@ class FirstScreen extends React.Component {
   onPressConnect = () => {
     const { navigation, triggerModal } = this.props;
     triggerModal(true);
-    this.props.login('email', 'passs');
+    this.props.login('email', 'passs'); // In development
     setTimeout(() => {
       triggerModal(false);
       navigation.navigate('Second');
@@ -44,7 +45,7 @@ class FirstScreen extends React.Component {
   }
 
   onPressLater = () => {
-    console.warn('onPress Later');
+    Alert.alert('In development');
   }
 
   render() {
