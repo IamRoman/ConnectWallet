@@ -1,12 +1,12 @@
 import apisauce from 'apisauce';
+import qs from 'qs';
 import { REQUEST_URL } from '../config/requestUrl';
 
 const create = (baseURL = REQUEST_URL) => {
   const api = apisauce.create({
     baseURL,
     headers: {
-      Accept: 'application/json',
-      'Content-type': 'application/json',
+      'Content-type': 'application/x-www-form-urlencoded',
     },
     timeout: 10000,
   });
@@ -17,14 +17,16 @@ const create = (baseURL = REQUEST_URL) => {
     });
   };
 
-  const loginUser = (email, password) => api.post('login/', {
+  const loginUser = (email, password) => api.post('login/', qs.stringify({
     email,
     password,
-  });
-  const registrationUser = (email, password) => api.post('registration/', {
+  }, { encode: true }));
+
+  const registrationUser = (email, password) => api.post('registration/', qs.stringify({
     email,
     password,
-  });
+  }, { encode: true }));
+
   return {
     setTokenToHeaders,
     loginUser,

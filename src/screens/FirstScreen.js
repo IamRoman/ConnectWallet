@@ -15,6 +15,7 @@ import SimpleButton from '../components/SimpleButton';
 import ButtonWithImage from '../components/ButtonWithImage';
 import ModalLoaderIndicator from '../components/ModalLoaderIndicator';
 import { setIsShowModal } from '../actions/appSettings';
+import { fetchingLoginUser } from '../actions/authorization';
 
 const descriptionText = 'За номером 067 220 56 18 вже є гаманець! ' +
 'Залишилось з’єднати його з додатком Мій Київстар, щоб поповнити рахунок.';
@@ -24,6 +25,7 @@ const buttonWithImage = 110;
 class FirstScreen extends React.Component {
   static propTypes = {
     triggerModal: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
     navigation: PropTypes.object.isRequired,
     isShowModal: PropTypes.bool,
   };
@@ -34,6 +36,7 @@ class FirstScreen extends React.Component {
   onPressConnect = () => {
     const { navigation, triggerModal } = this.props;
     triggerModal(true);
+    this.props.login('email', 'passs');
     setTimeout(() => {
       triggerModal(false);
       navigation.navigate('Second');
@@ -111,6 +114,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   triggerModal: isVisible => dispatch(setIsShowModal(isVisible)),
+  login: (email, password) => dispatch(fetchingLoginUser(email, password)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FirstScreen);
