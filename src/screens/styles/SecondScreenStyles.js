@@ -4,7 +4,6 @@ import { Colors, Fonts, Metrics } from '../../themes/';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: Colors.white,
   },

@@ -4,6 +4,7 @@ import {
   View,
   Text,
   Image,
+  Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -14,11 +15,26 @@ import { Images, Colors, Metrics } from '../themes';
 import Header from '../components/AppHeader';
 import NumberInput from '../components/NumberInput';
 import ButtonWithImage from '../components/ButtonWithImage';
+import ButtonAnimated from '../components/ButtonAnimated';
 
 const descriptionText = `Щоб впевнитися що ви особисто підключаєте Masterpass-гаманець, ми тимчасово
  заблокуємо 1 гривню на картці із цього гаманця. Після цього вам надійде СМС з кодом підтвердження (VCODE)
   на той номер, який ви вказали у банку під час отримання картки.`;
-const buttonWithImage = 150;
+const simpleButtonWidth = 150;
+const buttonWithImage = 110;
+
+const {
+  lightGrey,
+  simpleButtonColor,
+  activeButtonTextColor,
+  inactiveButtonTextColor,
+} = Colors;
+
+const { screenWidth, screenHeight } = Metrics;
+
+const initialLeft = (screenWidth / 2) - (simpleButtonWidth / 2);
+const initialTop = screenHeight / 4;
+
 
 class SecondScreen extends React.Component {
   static propTypes = {
@@ -32,7 +48,18 @@ class SecondScreen extends React.Component {
 
     this.state = {
       key: '',
+      scrollEnabled: false,
     };
+  }
+
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
   }
 
   onPressConnect = () => {
@@ -41,6 +68,14 @@ class SecondScreen extends React.Component {
 
   onPressLater = () => {
     console.warn('onPress Later');
+  }
+
+  keyboardDidShow = () => {
+    this.setState({ scrollEnabled: true });
+  }
+
+  keyboardDidHide = () => {
+    this.setState({ scrollEnabled: false });
   }
 
   timerRender = () => {
@@ -59,6 +94,8 @@ class SecondScreen extends React.Component {
 
   render() {
     const { navigation } = this.props;
+    const { scrollEnabled } = this.state;
+    const buttonAnimatedDisabled = false;
     return (
       <ImageBackground
         source={Images.background_image}
@@ -72,7 +109,11 @@ class SecondScreen extends React.Component {
           onPressLeftIcon={() => navigation.goBack(null)}
           onPressRightIcon={() => {}}
         />
-        <KeyboardAwareScrollView contentContainerStyle={styles.contentContainer}>
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.contentContainer}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={scrollEnabled}
+        >
           <View>
             <Text style={styles.headerTextStyle}>
               {'Підключення \nMasterpass-гаманця'}
@@ -112,6 +153,18 @@ class SecondScreen extends React.Component {
             </View>
           </View>
         </KeyboardAwareScrollView>
+        <View style={styles.animatedButtonContainer}>
+          <ButtonAnimated
+            disabled={buttonAnimatedDisabled}
+            onPress={() => {}}
+            initialTopPosition={initialTop}
+            initialLeftPosition={initialLeft}
+            buttonColor={buttonAnimatedDisabled ? lightGrey : simpleButtonColor}
+            textColor={buttonAnimatedDisabled ? inactiveButtonTextColor : activeButtonTextColor}
+            width={simpleButtonWidth}
+            title="Підключити"
+          />
+        </View>
       </ImageBackground>
     );
   }
