@@ -27,6 +27,26 @@ export default StyleSheet.create({
     marginTop: Metrics.baseMargin,
     // fontFamily: Fonts.MuseoSansCyrl-500,
   },
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  timerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    marginLeft: 15,
+  },
+  timerText: {
+    fontSize: 13,
+    color: Colors.timerColor,
+    // fontFamily: Fonts.MuseoSansCyrl-500,
+  },
+  timerIcon: {
+    height: 15,
+    width: 15,
+    marginLeft: 5,
+  },
   logoContainer: {
     height: 35,
     width: Metrics.screenWidth * 0.9,

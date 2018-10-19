@@ -43,6 +43,20 @@ class SecondScreen extends React.Component {
     console.warn('onPress Later');
   }
 
+  timerRender = () => {
+    const time = 3.47;
+    return (
+      <View style={styles.timerContainer}>
+        <Text style={styles.timerText}>{time}</Text>
+        <Image
+          resizeMode="contain"
+          style={styles.timerIcon}
+          source={Images.timer_icon}
+        />
+      </View>
+    );
+  }
+
   render() {
     const { navigation } = this.props;
     return (
@@ -83,6 +97,9 @@ class SecondScreen extends React.Component {
                 imageSource={Images.group_icon}
                 width={buttonWithImage}
               />
+              {
+                this.timerRender()
+              }
             </View>
           </View>
           <View>

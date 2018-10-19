@@ -8,6 +8,7 @@ const colors = {
   black: '#000',
   simpleButtonColor: '#FDDA24',
   modalBgColor: 'rgba(0, 0, 0, 0.5)',
+  timerColor: '#FDDA24',
 };
 
 export default colors;
