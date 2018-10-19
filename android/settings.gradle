@@ -1,0 +1,3 @@
+rootProject.name = 'ConnectWallet'
+
+include ':app'
