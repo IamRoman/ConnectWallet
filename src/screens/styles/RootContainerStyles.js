@@ -7,6 +7,5 @@ export default StyleSheet.create({
   },
   rootStackStyle: {
     flex: 1,
-    marginTop: 30,
   },
 });

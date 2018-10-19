@@ -1,14 +1,16 @@
 import { createStackNavigator } from 'react-navigation';
 
-import HomeScreen from '../screens/HomeScreen';
+import FirstScreen from '../screens/FirstScreen';
+import SecondScreen from '../screens/SecondScreen';
 
 const AccountStack = createStackNavigator(
   {
-    Home: { screen: HomeScreen },
+    First: { screen: FirstScreen },
+    Second: { screen: SecondScreen },
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Home',
+    initialRouteName: 'Second',
   },
 );
 
