@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    top: Metrics.appHeaderHeight,
+    top: Metrics.statusBarHeight,
     left: 0,
     right: 0,
   },

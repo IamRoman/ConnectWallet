@@ -24,7 +24,6 @@ const descriptionText = 'Щоб впевнитися що ви особисто 
 const simpleButtonWidth = 150;
 const buttonWithImage = 150;
 const testEmail = 'react@native.facebook.com';
-// const fiveSeconds = 5;
 
 const {
   lightGrey,
@@ -97,6 +96,7 @@ class SecondScreen extends React.Component {
   onPressConnect = () => {
     const { triggerModal, triggerBanner } = this.props;
     const { key } = this.state;
+    Keyboard.dismiss();
     if (key.length < 4) {
       Alert.alert(
         null,
@@ -130,9 +130,10 @@ class SecondScreen extends React.Component {
   }
 
   render() {
-    const { navigation, triggerBanner} = this.props;
-    const { scrollEnabled } = this.state;
-    const buttonAnimatedDisabled = false; // In development
+    const { navigation, triggerBanner } = this.props;
+    const { scrollEnabled, key } = this.state;
+    const buttonAnimatedDisabled = key.length < 4;
+    const buttonSendSMSDisabled = true;
     return (
       <ImageBackground
         source={Images.background_image}
@@ -160,19 +161,19 @@ class SecondScreen extends React.Component {
             </Text>
             <NumberInput
               titleText=""
-              onChangeText={(key) => {
-                this.setState({ key });
+              onChangeText={(text) => {
+                this.setState({ key: text });
                 triggerBanner(false);
               }}
               onFocus={() => triggerBanner(false)}
-              passwordFromScreen={this.state.key}
+              passwordFromScreen={key}
               mainColor={Colors.white}
               secondaryColor={Colors.white}
             />
             <View style={styles.rowContainer}>
               <ButtonWithImage
                 onPress={this.onPressFailedMessage}
-                disabled={false}
+                disabled={buttonSendSMSDisabled}
                 title="Не приходить SMS"
                 buttonColor={Colors.transparent}
                 textColor={Colors.lightGrey}
