@@ -10,6 +10,7 @@ import {
 import PropTypes from 'prop-types';
 
 import Metrics from '../themes/Metrics';
+import { Fonts } from '../themes';
 
 const { screenWidth } = Metrics;
 
@@ -23,6 +24,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
+  },
+  text: {
+    fontFamily: Fonts.bold,
   },
 });
 
@@ -124,7 +128,9 @@ export default class ButtonAnimated extends React.Component {
           <Text
             style={[{
               color: textColor,
-            }]}
+              },
+              styles.text,
+            ]}
           >
             {title}
           </Text>

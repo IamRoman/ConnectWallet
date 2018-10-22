@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '../../themes/';
+import { Colors, Metrics, Fonts } from '../../themes/';
 
 export default StyleSheet.create({
   container: {
@@ -17,14 +17,14 @@ export default StyleSheet.create({
     fontSize: 24,
     color: Colors.white,
     letterSpacing: -0.2,
-    // fontFamily: Fonts.MuseoSansCyrl-700,
+    fontFamily: Fonts.bold,
   },
   descriptionTextStyle: {
     fontSize: 15,
     color: Colors.white,
     letterSpacing: -0.2,
     marginTop: Metrics.baseMargin,
-    // fontFamily: Fonts.MuseoSansCyrl-500,
+    fontFamily: Fonts.regular,
   },
   rowContainer: {
     flexDirection: 'row',
@@ -39,7 +39,7 @@ export default StyleSheet.create({
   timerText: {
     fontSize: 13,
     color: Colors.timerColor,
-    // fontFamily: Fonts.MuseoSansCyrl-500,
+    fontFamily: Fonts.regular,
   },
   timerIcon: {
     height: 15,

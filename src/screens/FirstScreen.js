@@ -89,7 +89,7 @@ class FirstScreen extends React.Component {
                 disabled={false}
                 title="Пізніше"
                 buttonColor={Colors.transparent}
-                textColor={Colors.black}
+                textColor={Colors.white}
                 imageSource={Images.group_icon}
                 width={buttonWithImage}
               />

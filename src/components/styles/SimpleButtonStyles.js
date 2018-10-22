@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, Fonts } from '../../themes/';
+import { Colors, Fonts } from '../../themes/';
 
 export default StyleSheet.create({
   button: {
@@ -13,8 +13,11 @@ export default StyleSheet.create({
   },
   bottomText: {
     fontSize: 11,
-    // fontFamily: Fonts.latoRegular,
+    fontFamily: Fonts.regular,
     color: Colors.textColor,
     lineHeight: 18,
+  },
+  buttonText: {
+    fontFamily: Fonts.bold,
   },
 });
