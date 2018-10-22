@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, Fonts } from '../../themes/';
+import { Colors, Fonts } from '../../themes/';
 
 export default StyleSheet.create({
   button: {
@@ -10,12 +10,15 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    // shadowColor: Colors.shadowColor,
   },
   bottomText: {
     fontSize: 11,
     color: Colors.textColor,
     lineHeight: 18,
+    fontFamily: Fonts.bold,
+  },
+  buttonText: {
+    fontFamily: Fonts.bold,
   },
   iconStyle: {
     height: 15,

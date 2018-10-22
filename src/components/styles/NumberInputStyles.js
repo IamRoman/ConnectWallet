@@ -8,11 +8,11 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: Colors.grey,
     fontSize: 14,
-    // fontFamily: Fonts.latoRegular,
+    fontFamily: Fonts.regular,
   },
   textForInput: {
     fontSize: 14,
-    // fontFamily: Fonts.latoBold,
+    fontFamily: Fonts.bold,
   },
   inputContainer: {
     alignItems: 'flex-start',

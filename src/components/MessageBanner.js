@@ -4,6 +4,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { Fonts } from '../themes';
 
 const bannerHeight = 30;
 
@@ -16,6 +17,9 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
+  },
+  text: {
+    fontFamily: Fonts.regular,
   },
 });
 
@@ -71,10 +75,13 @@ export default class MessageBanner extends React.Component {
         ]}
       >
         <Animated.Text
-          style={[{
-            color: textColor,
-            opacity: this.animatedValue,
-          }]}
+          style={[
+            {
+              color: textColor,
+              opacity: this.animatedValue,
+            },
+            styles.text,
+          ]}
         >
           {text}
         </Animated.Text>
