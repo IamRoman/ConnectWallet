@@ -44,6 +44,7 @@ class SecondScreen extends React.Component {
     login: PropTypes.func.isRequired,
     triggerModal: PropTypes.func.isRequired,
     triggerBanner: PropTypes.func.isRequired,
+    timerButtonIsActive: PropTypes.bool.isRequired,
   };
   static defaultProps = {
   };
@@ -69,28 +70,6 @@ class SecondScreen extends React.Component {
 
   onPressFailedMessage = () => {
     Alert.alert('In development');
-  }
-
-  keyboardDidShow = () => {
-    this.setState({ scrollEnabled: true });
-  }
-
-  keyboardDidHide = () => {
-    this.setState({ scrollEnabled: false });
-  }
-
-  timerRender = () => {
-    const time = '02:47';
-    return (
-      <View style={styles.timerContainer}>
-        <Text style={styles.timerText}>{time}</Text>
-        <Image
-          resizeMode="contain"
-          style={styles.timerIcon}
-          source={Images.timer_icon}
-        />
-      </View>
-    );
   }
 
   onPressConnect = () => {
@@ -129,11 +108,32 @@ class SecondScreen extends React.Component {
     });
   }
 
+  keyboardDidShow = () => {
+    this.setState({ scrollEnabled: true });
+  }
+
+  keyboardDidHide = () => {
+    this.setState({ scrollEnabled: false });
+  }
+
+  timerRender = () => {
+    const time = '02:47';
+    return (
+      <View style={styles.timerContainer}>
+        <Text style={styles.timerText}>{time}</Text>
+        <Image
+          resizeMode="contain"
+          style={styles.timerIcon}
+          source={Images.timer_icon}
+        />
+      </View>
+    );
+  }
+
   render() {
-    const { navigation, triggerBanner } = this.props;
+    const { navigation, triggerBanner, timerButtonIsActive } = this.props;
     const { scrollEnabled, key } = this.state;
     const buttonAnimatedDisabled = key.length < 4;
-    const buttonSendSMSDisabled = true;
     return (
       <ImageBackground
         source={Images.background_image}
@@ -173,7 +173,7 @@ class SecondScreen extends React.Component {
             <View style={styles.rowContainer}>
               <ButtonWithImage
                 onPress={this.onPressFailedMessage}
-                disabled={buttonSendSMSDisabled}
+                disabled={!timerButtonIsActive}
                 title="Не приходить SMS"
                 buttonColor={Colors.transparent}
                 textColor={Colors.lightGrey}
@@ -212,7 +212,8 @@ class SecondScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = ({ timer: { timerButtonIsActive } }) => ({
+  timerButtonIsActive,
 });
 
 const mapDispatchToProps = dispatch => ({
