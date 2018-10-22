@@ -91,12 +91,6 @@ class SecondScreen extends React.Component {
         if (key === 'pistol') {
           triggerModal(false);
           this.setState({ isShowModal: true });
-          // Alert.alert(
-          //   null,
-          //   'Гаманець успішно з’єднано!',
-          //   [{ text: 'OK', onPress: () => triggerModal(false) }],
-          //   { cancelable: false },
-          // );
         } else {
           triggerModal(false);
           triggerBanner(true);
