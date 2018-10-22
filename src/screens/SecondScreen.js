@@ -10,6 +10,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import moment from 'moment';
 
 import styles from './styles/SecondScreenStyles';
 import { Images, Colors, Metrics } from '../themes';
@@ -20,6 +21,7 @@ import ButtonAnimated from '../components/ButtonAnimated';
 import { setIsShowModal, triggerMessageBanner } from '../actions/appSettings';
 import { fetchingLoginUser } from '../actions/authorization';
 import ModalInformationAfterConnectWallet from '../components/ModalInformationAfterConnectWallet';
+import { startTimer } from '../actions/timer';
 
 const descriptionText = 'Щоб впевнитися що ви особисто підключаєте Masterpass-гаманець, ми тимчасово заблокуємо 1 гривню на картці із цього гаманця. Після цього вам надійде СМС з кодом підтвердження (VCODE) на той номер, який ви вказали у банку під час отримання картки.';
 const simpleButtonWidth = 150;
@@ -46,6 +48,10 @@ class SecondScreen extends React.Component {
     triggerModal: PropTypes.func.isRequired,
     triggerBanner: PropTypes.func.isRequired,
     timerButtonIsActive: PropTypes.bool.isRequired,
+    timerValue: PropTypes.number.isRequired,
+    timerIsVisible: PropTypes.bool.isRequired,
+    endValue: PropTypes.number.isRequired,
+    timerStart: PropTypes.func.isRequired,
   };
   static defaultProps = {
   };
@@ -71,7 +77,9 @@ class SecondScreen extends React.Component {
   }
 
   onPressFailedMessage = () => {
-    Alert.alert('In development');
+    // Alert.alert('In development');
+    const { timerStart } = this.props;
+    timerStart();
   }
 
   onPressConnect = () => {
@@ -115,10 +123,11 @@ class SecondScreen extends React.Component {
   }
 
   timerRender = () => {
-    const time = '02:47';
+    const { timerValue, endValue } = this.props;
+    const value = moment.utc(endValue - timerValue).format('mm:ss');
     return (
       <View style={styles.timerContainer}>
-        <Text style={styles.timerText}>{time}</Text>
+        <Text style={styles.timerText}>{value}</Text>
         <Image
           resizeMode="contain"
           style={styles.timerIcon}
@@ -129,7 +138,10 @@ class SecondScreen extends React.Component {
   }
 
   render() {
-    const { navigation, triggerBanner, timerButtonIsActive } = this.props;
+    const {
+      navigation, triggerBanner, timerButtonIsActive,
+      timerIsVisible,
+    } = this.props;
     const { scrollEnabled, key } = this.state;
     const buttonAnimatedDisabled = key.length < 4;
     return (
@@ -179,7 +191,7 @@ class SecondScreen extends React.Component {
                 width={buttonWithImage}
               />
               {
-                this.timerRender()
+                timerIsVisible && this.timerRender()
               }
             </View>
           </View>
@@ -214,8 +226,15 @@ class SecondScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({ timer: { timerButtonIsActive } }) => ({
+const mapStateToProps = ({
+  timer: {
+    timerButtonIsActive, timerValue, timerIsVisible, endValue,
+  },
+}) => ({
   timerButtonIsActive,
+  timerValue,
+  timerIsVisible,
+  endValue,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -223,6 +242,7 @@ const mapDispatchToProps = dispatch => ({
   login: (email, password, callback) =>
     dispatch(fetchingLoginUser(email, password, callback)),
   triggerBanner: isVisible => dispatch(triggerMessageBanner(isVisible)),
+  timerStart: () => dispatch(startTimer()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecondScreen);

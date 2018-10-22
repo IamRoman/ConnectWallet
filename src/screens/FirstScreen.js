@@ -17,7 +17,7 @@ import ButtonWithImage from '../components/ButtonWithImage';
 import ModalLoaderIndicator from '../components/ModalLoaderIndicator';
 import { setIsShowModal } from '../actions/appSettings';
 import { fetchingRegistrationUser } from '../actions/authorization';
-import { startFiveSecondsTimer } from '../actions/timer';
+import { startTimer } from '../actions/timer';
 
 const descriptionText = 'За номером 067 220 56 18 вже є гаманець! ' +
 'Залишилось з’єднати його з додатком Мій Київстар, щоб поповнити рахунок.';
@@ -32,15 +32,15 @@ class FirstScreen extends React.Component {
     register: PropTypes.func.isRequired,
     navigation: PropTypes.object.isRequired,
     isShowModal: PropTypes.bool,
-    startTimerForFiveSeconds: PropTypes.func.isRequired,
+    timerStart: PropTypes.func.isRequired,
   };
   static defaultProps = {
     isShowModal: false,
   };
 
   onPressConnect = () => {
-    const { navigation, triggerModal, startTimerForFiveSeconds } = this.props;
-    startTimerForFiveSeconds();
+    const { navigation, triggerModal, timerStart } = this.props;
+    timerStart();
     triggerModal(true);
     this.props.register(testEmail, pass, (err) => {
       if (!err) {
@@ -130,7 +130,7 @@ const mapDispatchToProps = dispatch => ({
   triggerModal: isVisible => dispatch(setIsShowModal(isVisible)),
   register: (email, password, callback) =>
     dispatch(fetchingRegistrationUser(email, password, callback)),
-  startTimerForFiveSeconds: () => dispatch(startFiveSecondsTimer()),
+  timerStart: () => dispatch(startTimer()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FirstScreen);
