@@ -4,7 +4,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { Fonts } from '../themes';
+import { Fonts, Metrics } from '../themes';
 
 const bannerHeight = 30;
 
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    top: 0,
+    top: Metrics.appHeaderHeight,
     left: 0,
     right: 0,
   },

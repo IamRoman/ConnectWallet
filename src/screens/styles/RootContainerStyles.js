@@ -7,4 +7,7 @@ export default StyleSheet.create({
   rootStackStyle: {
     flex: 1,
   },
+  messageBannerContainer: {
+    height: 100,
+  },
 });

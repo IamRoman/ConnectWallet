@@ -54,21 +54,19 @@ class RootContainer extends React.Component {
         <View style={styles.rootStackStyle}>
           <MainStack />
         </View>
-        <View style={styles.messageBannerContainer}>
-          <MessageBanner
-            visible={messageBannerIsVisible}
-            bannerColor={bannerErrorColor}
-            textColor={white}
-            text="Введено не вірний VCODE. Спробуйте знову."
-          />
-        </View>
+        <MessageBanner
+          visible={messageBannerIsVisible}
+          bannerColor={bannerErrorColor}
+          textColor={white}
+          text="Введено не вірний VCODE. Спробуйте знову."
+        />
       </View>
     );
   }
 }
 
-const mapStateToProps = ({ appSettings: { messageBannerIsVisible } }) => ({
-  messageBannerIsVisible,
+const mapStateToProps = state => ({
+  messageBannerIsVisible: state.appSettings.messageBannerIsVisible,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -17,12 +17,16 @@ import Header from '../components/AppHeader';
 import NumberInput from '../components/NumberInput';
 import ButtonWithImage from '../components/ButtonWithImage';
 import ButtonAnimated from '../components/ButtonAnimated';
+import { setIsShowModal, triggerMessageBanner } from '../actions/appSettings';
+import { fetchingLoginUser } from '../actions/authorization';
 
 const descriptionText = `Щоб впевнитися що ви особисто підключаєте Masterpass-гаманець, ми тимчасово
  заблокуємо 1 гривню на картці із цього гаманця. Після цього вам надійде СМС з кодом підтвердження (VCODE)
   на той номер, який ви вказали у банку під час отримання картки.`;
 const simpleButtonWidth = 150;
 const buttonWithImage = 150;
+const testEmail = 'react@native.facebook.com';
+// const fiveSeconds = 5;
 
 const {
   lightGrey,
@@ -40,6 +44,9 @@ const initialTop = screenHeight / 4;
 class SecondScreen extends React.Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired,
+    triggerModal: PropTypes.func.isRequired,
+    triggerBanner: PropTypes.func.isRequired,
   };
   static defaultProps = {
   };
@@ -90,11 +97,42 @@ class SecondScreen extends React.Component {
   }
 
   onPressConnect = () => {
-    console.warn('onPress');
+    const { triggerModal, triggerBanner } = this.props;
+    const { key } = this.state;
+    if (key.length < 4) {
+      Alert.alert(
+        null,
+        'Miнiмальне число символiв повинно бути не меньше чотирьох!',
+      );
+      return;
+    }
+    triggerModal(true);
+    this.props.login(testEmail, key, (err) => {
+      if (!err) {
+        if (key === 'pistol') {
+          Alert.alert(
+            null,
+            'Гаманець успішно з’єднано!',
+            [{ text: 'OK', onPress: () => triggerModal(false) }],
+            { cancelable: false },
+          );
+        } else {
+          triggerModal(false);
+          triggerBanner(true);
+        }
+      } else {
+        Alert.alert(
+          null,
+          err,
+          [{ text: 'OK', onPress: () => triggerModal(false) }],
+          { cancelable: false },
+        );
+      }
+    });
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, triggerBanner} = this.props;
     const { scrollEnabled } = this.state;
     const buttonAnimatedDisabled = false; // In development
     return (
@@ -124,7 +162,11 @@ class SecondScreen extends React.Component {
             </Text>
             <NumberInput
               titleText=""
-              onChangeText={key => this.setState({ key })}
+              onChangeText={(key) => {
+                this.setState({ key });
+                triggerBanner(false);
+              }}
+              onFocus={() => triggerBanner(false)}
               passwordFromScreen={this.state.key}
               mainColor={Colors.white}
               secondaryColor={Colors.white}
@@ -175,6 +217,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  triggerModal: isVisible => dispatch(setIsShowModal(isVisible)),
+  login: (email, password, callback) =>
+    dispatch(fetchingLoginUser(email, password, callback)),
+  triggerBanner: isVisible => dispatch(triggerMessageBanner(isVisible)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecondScreen);

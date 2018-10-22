@@ -10,7 +10,8 @@ import styles from './styles/NumberInputStyles';
 
 class NumberInput extends React.Component {
   static propTypes = {
-    onChangeText: PropTypes.func,
+    onChangeText: PropTypes.func.isRequired,
+    onFocus: PropTypes.func.isRequired,
     titleText: PropTypes.string,
     passwordFromScreen: PropTypes.string,
     mainColor: PropTypes.string,
@@ -18,7 +19,6 @@ class NumberInput extends React.Component {
     textEditable: PropTypes.bool,
   };
   static defaultProps = {
-    onChangeText: () => {},
     titleText: '',
     passwordFromScreen: '',
     mainColor: '',
@@ -35,6 +35,7 @@ class NumberInput extends React.Component {
   render() {
     const {
       onChangeText,
+      onFocus,
       titleText,
       passwordFromScreen,
       mainColor,
@@ -48,6 +49,7 @@ class NumberInput extends React.Component {
           keyboardType="numeric"
           style={[styles.textInputStyle, { color: secondaryColor }]}
           onChangeText={password => onChangeText(password)}
+          onFocus={() => onFocus()}
           value={passwordFromScreen}
           placeholder="Введіть VCODE c SMS "
           placeholderTextColor={secondaryColor}

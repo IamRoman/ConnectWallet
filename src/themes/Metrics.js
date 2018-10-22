@@ -15,7 +15,7 @@ const metrics = {
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
   navBarHeight: Platform.OS === 'ios' ? 64 : 54,
-  appHeaderHeight: 75,
+  appHeaderHeight: 20,
   buttonRadius: 4,
   inputHeight: 42,
   icons: {

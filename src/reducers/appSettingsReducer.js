@@ -15,6 +15,11 @@ export default function appSettingsReducer(state = initialState, action) {
         ...state,
         isShowModal: action.isShowModal,
       };
+    case types.TRIGGER_MESSAGE_BANNER:
+      return {
+        ...state,
+        messageBannerIsVisible: action.IsVisible,
+      };
     case types.CREATE_TIMER:
       return {
         ...state,
