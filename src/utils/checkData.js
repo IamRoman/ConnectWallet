@@ -12,24 +12,23 @@ export const getDifferentTime = (startTime, endTime) => {
   return 0;
 };
 
+
 export const startTimer = (duration) => {
-  const startTime = moment().format('X');
-  const endTime = moment().format();
+  const start = Date.now();
   let diff = 0;
   let minutes = 0;
   let seconds = 0;
   let interval = null;
   const timer = () => {
-    diff = endTime - startTime;
-    // diff = duration - (((Date.now() - start) / 1000) || 0);
+    diff = duration - (((Date.now() - start) / 1000) || 0);
 
-    // minutes = (diff / 60) || 0;
-    // seconds = (diff % 60) || 0;
+    minutes = ((diff / 60).toFixed(0)) || 0;
+    seconds = ((diff % 60).toFixed(0)) || 0;
 
-    // minutes = minutes < 10 ? `0${minutes}` : minutes;
-    // seconds = seconds < 10 ? `0${seconds}` : seconds;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
 
-    console.warn('tick>>>', diff);
+    console.warn('tick>>>', `${minutes} : ${seconds}`);
 
     if (diff <= 0) {
       clearInterval(interval);
@@ -40,32 +39,4 @@ export const startTimer = (duration) => {
   timer();
   interval = setInterval(timer, 1000);
 };
-
-
-// export const startTimer = (duration) => {
-//   const start = Date.now();
-//   let diff = 0;
-//   let minutes = 0;
-//   let seconds = 0;
-//   let interval = null;
-//   const timer = () => {
-//     diff = duration - (((Date.now() - start) / 1000) || 0);
-
-//     minutes = (diff / 60) || 0;
-//     seconds = (diff % 60) || 0;
-
-//     minutes = minutes < 10 ? `0${minutes}` : minutes;
-//     seconds = seconds < 10 ? `0${seconds}` : seconds;
-
-//     console.warn('tick>>>', `${minutes} : ${seconds}`);
-
-//     if (diff <= 0) {
-//       clearInterval(interval);
-//       return null;
-//     }
-//     return `${minutes} : ${seconds}`;
-//   };
-//   timer();
-//   interval = setInterval(timer, 1000);
-// };
 

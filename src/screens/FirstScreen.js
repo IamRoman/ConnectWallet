@@ -57,8 +57,8 @@ class FirstScreen extends React.Component {
   }
 
   onPressLater = () => {
-    Alert.alert('In development');
-    // startTimer(fiveSeconds);
+    // Alert.alert('In development');
+    startTimer(fiveSeconds);
   }
 
   render() {
