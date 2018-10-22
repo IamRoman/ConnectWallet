@@ -13,6 +13,8 @@ const colors = {
   activeButtonTextColor: '#3B4952',
   inactiveButtonTextColor: '#90979C',
   bannerErrorColor: '#E2575B',
+  textColorForModal: '#3B4952',
+  descriptionTextColorForModal: '#90979B',
 };
 
 export default colors;

@@ -19,6 +19,7 @@ import ButtonWithImage from '../components/ButtonWithImage';
 import ButtonAnimated from '../components/ButtonAnimated';
 import { setIsShowModal, triggerMessageBanner } from '../actions/appSettings';
 import { fetchingLoginUser } from '../actions/authorization';
+import ModalInformationAfterConnectWallet from '../components/ModalInformationAfterConnectWallet';
 
 const descriptionText = 'Щоб впевнитися що ви особисто підключаєте Masterpass-гаманець, ми тимчасово заблокуємо 1 гривню на картці із цього гаманця. Після цього вам надійде СМС з кодом підтвердження (VCODE) на той номер, який ви вказали у банку під час отримання картки.';
 const simpleButtonWidth = 150;
@@ -54,6 +55,7 @@ class SecondScreen extends React.Component {
     this.state = {
       key: '',
       scrollEnabled: false,
+      isShowModal: false,
     };
   }
 
@@ -108,12 +110,14 @@ class SecondScreen extends React.Component {
     this.props.login(testEmail, key, (err) => {
       if (!err) {
         if (key === 'pistol') {
-          Alert.alert(
-            null,
-            'Гаманець успішно з’єднано!',
-            [{ text: 'OK', onPress: () => triggerModal(false) }],
-            { cancelable: false },
-          );
+          triggerModal(false);
+          this.setState({ isShowModal: true });
+          // Alert.alert(
+          //   null,
+          //   'Гаманець успішно з’єднано!',
+          //   [{ text: 'OK', onPress: () => triggerModal(false) }],
+          //   { cancelable: false },
+          // );
         } else {
           triggerModal(false);
           triggerBanner(true);
@@ -207,6 +211,10 @@ class SecondScreen extends React.Component {
             title="Підключити"
           />
         </View>
+        <ModalInformationAfterConnectWallet
+          isShowModal={this.state.isShowModal}
+          onPressConnect={() => this.setState({ isShowModal: false })}
+        />
       </ImageBackground>
     );
   }
