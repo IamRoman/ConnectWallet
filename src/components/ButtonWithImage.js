@@ -8,7 +8,6 @@ import {
 
 import PropTypes from 'prop-types';
 import styles from './styles/ButtonWithImageStyles';
-import { Metrics } from '../themes/';
 
 class ButtonWithImage extends React.Component {
   static propTypes = {
@@ -63,7 +62,15 @@ class ButtonWithImage extends React.Component {
           style={styles.iconStyle}
           source={imageSource}
         />
-        <Text style={[styles.buttonText, { color: textColor }]}>{title}</Text>
+        <Text
+          style={[
+            styles.buttonText,
+            { color: textColor },
+            disabled && styles.buttonTextDisabled,
+          ]}
+        >
+          {title}
+        </Text>
       </TouchableOpacity>
     );
   }

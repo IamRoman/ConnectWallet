@@ -17,6 +17,9 @@ export default StyleSheet.create({
   buttonText: {
     fontFamily: Fonts.bold,
   },
+  buttonTextDisabled: {
+    opacity: 0.8,
+  },
   iconStyle: {
     height: 15,
     width: 15,
