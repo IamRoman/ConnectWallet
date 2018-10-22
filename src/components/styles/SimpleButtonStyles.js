@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts } from '../../themes/';
+import { Colors, Fonts, Metrics } from '../../themes/';
 
 export default StyleSheet.create({
   button: {
-    height: 40,
-    marginTop: 10,
-    width: 158,
+    height: Metrics.buttonHeight,
+    width: Metrics.buttonWidth,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
+    borderRadius: Metrics.buttonHeight / 2,
     shadowColor: Colors.shadowColor,
   },
   bottomText: {

@@ -1,21 +1,21 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts } from '../../themes/';
+import { Colors, Fonts, Metrics } from '../../themes/';
 
 export default StyleSheet.create({
   container: {
-    height: 20,
-    marginTop: 25,
+    height: Metrics.appHeaderHeight,
+    marginTop: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Colors.white,
   },
   leftContainer: {
-    flex: 0.15,
+    width: 50,
     alignItems: 'center',
   },
   middleContainer: {
-    flex: 0.7,
+    flex: 1,
     alignItems: 'center',
   },
   textStyle: {
@@ -24,14 +24,15 @@ export default StyleSheet.create({
     fontFamily: Fonts.regular,
   },
   rightContainer: {
-    flex: 0.15,
+    width: 50,
     alignItems: 'center',
   },
   buttonStyle: {
     padding: 15,
   },
   iconStyle: {
-    height: 12,
-    width: 12,
+    height: 14,
+    width: 14,
+    marginLeft: 5,
   },
 });

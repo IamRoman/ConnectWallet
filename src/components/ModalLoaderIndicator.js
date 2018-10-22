@@ -30,7 +30,7 @@ export default class extends React.Component {
     const { isShowModal } = this.props;
     return (
       <Modal
-        animationType="slide"
+        animationType="fade"
         onRequestClose={() => null}
         transparent
         visible={isShowModal}

@@ -18,9 +18,7 @@ import NumberInput from '../components/NumberInput';
 import ButtonWithImage from '../components/ButtonWithImage';
 import ButtonAnimated from '../components/ButtonAnimated';
 
-const descriptionText = `Щоб впевнитися що ви особисто підключаєте Masterpass-гаманець, ми тимчасово
- заблокуємо 1 гривню на картці із цього гаманця. Після цього вам надійде СМС з кодом підтвердження (VCODE)
-  на той номер, який ви вказали у банку під час отримання картки.`;
+const descriptionText = 'Щоб впевнитися що ви особисто підключаєте Masterpass-гаманець, ми тимчасово заблокуємо 1 гривню на картці із цього гаманця. Після цього вам надійде СМС з кодом підтвердження (VCODE) на той номер, який ви вказали у банку під час отримання картки.';
 const simpleButtonWidth = 150;
 const buttonWithImage = 150;
 
@@ -76,7 +74,7 @@ class SecondScreen extends React.Component {
   }
 
   timerRender = () => {
-    const time = 3.47;
+    const time = '02:47';
     return (
       <View style={styles.timerContainer}>
         <Text style={styles.timerText}>{time}</Text>
@@ -132,7 +130,7 @@ class SecondScreen extends React.Component {
                 title="Не приходить SMS"
                 buttonColor={Colors.transparent}
                 textColor={Colors.lightGrey}
-                imageSource={Images.group_icon}
+                imageSource={Images.group}
                 width={buttonWithImage}
               />
               {
