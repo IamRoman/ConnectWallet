@@ -33,7 +33,7 @@ export const setTimerIsVisible = value => ({
 export const startTimer = () => (dispatch) => {
   dispatch(setTimerButtonIsActive(false));
   const startTime = Date.now();
-  const endTime = startTime + (5 * 60 * 1000);
+  const endTime = startTime + (3 * 60 * 1000);
   dispatch(setTimerEndTime(endTime));
   dispatch(setTimerSartTime(startTime));
   setTimeout(() => {
