@@ -10,6 +10,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import moment from 'moment';
 
 import styles from './styles/SecondScreenStyles';
 import { Images, Colors, Metrics } from '../themes';
@@ -46,6 +47,9 @@ class SecondScreen extends React.Component {
     triggerModal: PropTypes.func.isRequired,
     triggerBanner: PropTypes.func.isRequired,
     timerButtonIsActive: PropTypes.bool.isRequired,
+    timerValue: PropTypes.number.isRequired,
+    timerIsVisible: PropTypes.bool.isRequired,
+    endValue: PropTypes.number.isRequired,
   };
   static defaultProps = {
   };
@@ -91,12 +95,6 @@ class SecondScreen extends React.Component {
         if (key === 'pistol') {
           triggerModal(false);
           this.setState({ isShowModal: true });
-          // Alert.alert(
-          //   null,
-          //   'Гаманець успішно з’єднано!',
-          //   [{ text: 'OK', onPress: () => triggerModal(false) }],
-          //   { cancelable: false },
-          // );
         } else {
           triggerModal(false);
           triggerBanner(true);
@@ -121,10 +119,11 @@ class SecondScreen extends React.Component {
   }
 
   timerRender = () => {
-    const time = '02:47';
+    const { timerValue, endValue } = this.props;
+    const value = moment.utc(endValue - timerValue).format('mm:ss');
     return (
       <View style={styles.timerContainer}>
-        <Text style={styles.timerText}>{time}</Text>
+        <Text style={styles.timerText}>{value}</Text>
         <Image
           resizeMode="contain"
           style={styles.timerIcon}
@@ -135,7 +134,10 @@ class SecondScreen extends React.Component {
   }
 
   render() {
-    const { navigation, triggerBanner, timerButtonIsActive } = this.props;
+    const {
+      navigation, triggerBanner, timerButtonIsActive,
+      timerIsVisible,
+    } = this.props;
     const { scrollEnabled, key } = this.state;
     const buttonAnimatedDisabled = key.length < 4;
     return (
@@ -185,7 +187,7 @@ class SecondScreen extends React.Component {
                 width={buttonWithImage}
               />
               {
-                this.timerRender()
+                timerIsVisible && this.timerRender()
               }
             </View>
           </View>
@@ -220,8 +222,15 @@ class SecondScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({ timer: { timerButtonIsActive } }) => ({
+const mapStateToProps = ({
+  timer: {
+    timerButtonIsActive, timerValue, timerIsVisible, endValue,
+  },
+}) => ({
   timerButtonIsActive,
+  timerValue,
+  timerIsVisible,
+  endValue,
 });
 
 const mapDispatchToProps = dispatch => ({

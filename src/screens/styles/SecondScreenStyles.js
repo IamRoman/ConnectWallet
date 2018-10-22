@@ -35,8 +35,10 @@ export default StyleSheet.create({
     marginTop: 16,
   },
   timerContainer: {
+    width: 60,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginLeft: 16,
   },
   timerText: {
