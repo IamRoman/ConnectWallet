@@ -22,6 +22,8 @@ const descriptionText = 'За номером 067 220 56 18 вже є гаман�
 'Залишилось з’єднати його з додатком Мій Київстар, щоб поповнити рахунок.';
 const simpleButtonWidth = 158;
 const buttonWithImage = 110;
+const email = 'react@native.facebook.com';
+const pass = 'pistol';
 
 class FirstScreen extends React.Component {
   static propTypes = {
@@ -37,11 +39,19 @@ class FirstScreen extends React.Component {
   onPressConnect = () => {
     const { navigation, triggerModal } = this.props;
     triggerModal(true);
-    this.props.login('email', 'passs'); // In development
-    setTimeout(() => {
-      triggerModal(false);
-      navigation.navigate('Second');
-    }, 1000);
+    this.props.login(email, pass, (err) => {
+      if (!err) {
+        triggerModal(false);
+        navigation.navigate('Second');
+      } else {
+        Alert.alert(
+          null,
+          err,
+          [{ text: 'OK', onPress: () => triggerModal(false) }],
+          { cancelable: false },
+        );
+      }
+    });
   }
 
   onPressLater = () => {
@@ -115,7 +125,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   triggerModal: isVisible => dispatch(setIsShowModal(isVisible)),
-  login: (email, password) => dispatch(fetchingLoginUser(email, password)),
+  login: (email, password, callback) =>
+    dispatch(fetchingLoginUser(email, password, callback)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FirstScreen);

@@ -89,6 +89,10 @@ class SecondScreen extends React.Component {
     );
   }
 
+  onPressConnect = () => {
+    console.warn('onPress');
+  }
+
   render() {
     const { navigation } = this.props;
     const { scrollEnabled } = this.state;
@@ -153,7 +157,7 @@ class SecondScreen extends React.Component {
         <View style={styles.animatedButtonContainer}>
           <ButtonAnimated
             disabled={buttonAnimatedDisabled}
-            onPress={() => {}}
+            onPress={() => this.onPressConnect()}
             initialTopPosition={initialTop}
             initialLeftPosition={initialLeft}
             buttonColor={buttonAnimatedDisabled ? lightGrey : simpleButtonColor}

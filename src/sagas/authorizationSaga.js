@@ -1,21 +1,45 @@
-import { call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
+import { path } from 'ramda';
+import * as types from '../actions/authorization';
+import networkErrorHandler from '../utils/networkErrorHandler';
+import errorHandler from '../utils/errorHandler';
 
-export function* fetchLoginUser(api, { email, password }) {
+export function* fetchLoginUser(api, { email, password, callback }) {
   try {
     const response = yield call(api.loginUser, email, password);
-    console.warn('login', response); // In developing
+    if (response.ok && response.status === 200) {
+      const token = path(['data', 'token'], response);
+      yield put({ type: types.LOGIN_USER_SUCCESS, token });
+      callback(null);
+    } else if (!response.ok) {
+      const err = networkErrorHandler({ response, withoutAlert: true });
+      yield put({ type: types.LOGIN_USER_FAILURE, err });
+      callback(err);
+    }
   } catch (error) {
-    console.warn('catch', error); // In developing
+    const err = errorHandler({ error });
+    yield put({ type: types.LOGIN_USER_FAILURE, err });
+    callback(err);
   }
 }
 
 
-export function* fetchRegistrationUser(api, { email, password }) {
+export function* fetchRegistrationUser(api, { email, password, callback }) {
   try {
     const response = yield call(api.registrationUser, email, password);
-    console.warn('register', response); // In developing
+    if (response.ok && response.status === 200) {
+      const token = path(['data', 'token'], response);
+      yield put({ type: types.LOGIN_USER_SUCCESS, token });
+      callback(null);
+    } else if (!response.ok) {
+      const err = networkErrorHandler({ response, withoutAlert: true });
+      yield put({ type: types.LOGIN_USER_FAILURE, err });
+      callback(err);
+    }
   } catch (error) {
-    console.warn('catch', error); // In developing
+    const err = errorHandler({ error });
+    yield put({ type: types.LOGIN_USER_FAILURE, err });
+    callback(err);
   }
 }
 
