@@ -6,6 +6,7 @@ import {
   Image,
   Keyboard,
   Alert,
+  Animated,
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -64,11 +65,24 @@ class SecondScreen extends React.Component {
       scrollEnabled: false,
       isShowModal: false,
     };
+
+    this.animatedValue = new Animated.Value(0);
   }
 
   componentDidMount() {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { timerIsVisible } = this.props;
+    if (timerIsVisible !== nextProps.timerIsVisible) {
+      if (nextProps.timerIsVisible) {
+        this.animateToValue(1);
+      } else {
+        this.animateToValue(0);
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -77,7 +91,6 @@ class SecondScreen extends React.Component {
   }
 
   onPressFailedMessage = () => {
-    // Alert.alert('In development');
     const { timerStart } = this.props;
     timerStart();
   }
@@ -114,6 +127,13 @@ class SecondScreen extends React.Component {
     });
   }
 
+  animateToValue = (value) => {
+    Animated.timing(this.animatedValue, {
+      duration: 2000,
+      toValue: value,
+    }).start();
+  }
+
   keyboardDidShow = () => {
     this.setState({ scrollEnabled: true });
   }
@@ -126,21 +146,20 @@ class SecondScreen extends React.Component {
     const { timerValue, endValue } = this.props;
     const value = moment.utc(endValue - timerValue).format('mm:ss');
     return (
-      <View style={styles.timerContainer}>
+      <Animated.View style={[styles.timerContainer, { opacity: this.animatedValue }]}>
         <Text style={styles.timerText}>{value}</Text>
         <Image
           resizeMode="contain"
           style={styles.timerIcon}
           source={Images.timer_icon}
         />
-      </View>
+      </Animated.View>
     );
   }
 
   render() {
     const {
       navigation, triggerBanner, timerButtonIsActive,
-      timerIsVisible,
     } = this.props;
     const { scrollEnabled, key } = this.state;
     const buttonAnimatedDisabled = key.length < 4;
@@ -191,7 +210,7 @@ class SecondScreen extends React.Component {
                 width={buttonWithImage}
               />
               {
-                timerIsVisible && this.timerRender()
+                this.timerRender()
               }
             </View>
           </View>
