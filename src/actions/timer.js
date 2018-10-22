@@ -30,7 +30,7 @@ export const setTimerIsVisible = value => ({
   value,
 });
 
-export const startFiveSecondsTimer = () => (dispatch) => {
+export const startTimer = () => (dispatch) => {
   dispatch(setTimerButtonIsActive(false));
   const startTime = Date.now();
   const endTime = startTime + (5 * 60 * 1000);

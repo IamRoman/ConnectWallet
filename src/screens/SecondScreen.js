@@ -21,6 +21,7 @@ import ButtonAnimated from '../components/ButtonAnimated';
 import { setIsShowModal, triggerMessageBanner } from '../actions/appSettings';
 import { fetchingLoginUser } from '../actions/authorization';
 import ModalInformationAfterConnectWallet from '../components/ModalInformationAfterConnectWallet';
+import { startTimer } from '../actions/timer';
 
 const descriptionText = 'Щоб впевнитися що ви особисто підключаєте Masterpass-гаманець, ми тимчасово заблокуємо 1 гривню на картці із цього гаманця. Після цього вам надійде СМС з кодом підтвердження (VCODE) на той номер, який ви вказали у банку під час отримання картки.';
 const simpleButtonWidth = 150;
@@ -50,6 +51,7 @@ class SecondScreen extends React.Component {
     timerValue: PropTypes.number.isRequired,
     timerIsVisible: PropTypes.bool.isRequired,
     endValue: PropTypes.number.isRequired,
+    timerStart: PropTypes.func.isRequired,
   };
   static defaultProps = {
   };
@@ -75,7 +77,9 @@ class SecondScreen extends React.Component {
   }
 
   onPressFailedMessage = () => {
-    Alert.alert('In development');
+    // Alert.alert('In development');
+    const { timerStart } = this.props;
+    timerStart();
   }
 
   onPressConnect = () => {
@@ -238,6 +242,7 @@ const mapDispatchToProps = dispatch => ({
   login: (email, password, callback) =>
     dispatch(fetchingLoginUser(email, password, callback)),
   triggerBanner: isVisible => dispatch(triggerMessageBanner(isVisible)),
+  timerStart: () => dispatch(startTimer()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecondScreen);
