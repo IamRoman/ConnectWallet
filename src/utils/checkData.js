@@ -13,14 +13,14 @@ export const getDifferentTime = (startTime, endTime) => {
 };
 
 export const startTimer = (duration) => {
-  const startTime = moment();
-  const endTime = moment(moment()).add(duration, 'seconds');
+  const startTime = moment().format('X');
+  const endTime = moment().format();
   let diff = 0;
   let minutes = 0;
   let seconds = 0;
   let interval = null;
   const timer = () => {
-    diff = moment(moment(startTime, 'hh:mm:ss').diff(moment(endTime, 'hh:mm:ss'))).format('hh:mm:ss');
+    diff = endTime - startTime;
     // diff = duration - (((Date.now() - start) / 1000) || 0);
 
     // minutes = (diff / 60) || 0;

@@ -93,7 +93,7 @@ class FirstScreen extends React.Component {
                 title="Пізніше"
                 buttonColor={Colors.transparent}
                 textColor={Colors.white}
-                imageSource={Images.group_icon}
+                imageSource={Images.group}
                 width={buttonWithImage}
               />
               <SimpleButton
