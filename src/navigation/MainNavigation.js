@@ -10,7 +10,7 @@ const AccountStack = createStackNavigator(
   },
   {
     headerMode: 'none',
-    initialRouteName: 'Second',
+    initialRouteName: 'First',
   },
 );
 
